@@ -1,0 +1,15 @@
+.grid {
+    display: grid;
+
+    &.gap {
+        gap: 1rem;
+    }
+
+    &.gap-small {
+        gap: 0.5rem;
+    }
+
+    &.three-columns {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}

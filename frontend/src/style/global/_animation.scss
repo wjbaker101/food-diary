@@ -1,0 +1,9 @@
+$durations: (
+    'short': 0.2s,
+    'mid': 0.4s,
+    'long': 0.5s,
+);
+
+@function DURATION($duration) {
+    @return map-get($durations, $duration);
+}

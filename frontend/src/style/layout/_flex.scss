@@ -1,0 +1,43 @@
+.flex {
+    display: flex;
+
+    &.gap {
+        gap: 1rem;
+    }
+
+    &.gap-small {
+        gap: 0.5rem;
+    }
+
+    &.flex-vertical {
+        flex-direction: column;
+    }
+
+    &.flex-middle {
+        align-items: center;
+    }
+
+    & > * {
+        flex: 1;
+
+        &.flex-2 {
+            flex: 2;
+        }
+
+        &.flex-3 {
+            flex: 3;
+        }
+
+        &.flex-4 {
+            flex: 4;
+        }
+
+        &.flex-auto {
+            flex: 0 0 auto;
+        }
+
+        &.flex-self-middle {
+            align-self: center;
+        }
+    }
+}

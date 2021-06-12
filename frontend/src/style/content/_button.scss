@@ -1,0 +1,18 @@
+button {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background-color: COLOUR('primary');
+    border: 1px solid COLOUR('primary-dark');
+    color: COLOUR('white');
+    border-radius: BORDER_RADIUS();
+    font: inherit;
+    letter-spacing: inherit;
+    line-height: 1em;
+    cursor: pointer;
+    transition: background-color DURATION('short'), color DURATION('short');
+
+    &:hover {
+        background-color: COLOUR('primary-dark');
+        border: 1px solid COLOUR('primary-light');
+    }
+}

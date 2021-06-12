@@ -1,0 +1,14 @@
+input {
+    width: 100%;
+    padding: 0.5rem 1rem;
+    border: 1px solid COLOUR('primary-dark');
+    border-radius: BORDER_RADIUS();
+    font: inherit;
+    letter-spacing: inherit;
+    line-height: 1em;
+    transition: background-color DURATION('short'), color DURATION('short');
+
+    &:focus {
+        outline: 2px solid COLOUR('grey-dark');
+    }
+}
