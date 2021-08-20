@@ -99,13 +99,15 @@ namespace FoodDiaryApi.App._Api.Calendar.Entry
             if (entry == null)
                 throw new ApiNotFoundException();
 
-            if (entry.Exclusions.Any(x => x.Date == date))
+            var dateInLocalTime = date.ToLocalTime();
+
+            if (entry.Exclusions.Any(x => x.Date == dateInLocalTime))
                 throw new ApiBadRequestException("The given date has already been excluded for this calendar entry. Choose another date and try again or if you happy with the current state, ignore this message.");
 
             unitOfWork.EntryExclusions.Save(new CalendarEntryExclusionRecord
             {
                 Entry = entry,
-                Date = date
+                Date = dateInLocalTime
             });
 
             unitOfWork.Commit();
