@@ -4,8 +4,6 @@ import { ApiErrorResponse, ApiResultResponse } from '@/api/type/ApiResponse.type
 
 class ApiClient {
 
-    private readonly genericError = 'An error occured, please try again later or contact an administrator.';
-
     private api: AxiosInstance;
 
     constructor() {
@@ -20,7 +18,7 @@ class ApiClient {
             return new Error(errorResult.error);
         }
 
-        return new Error(this.genericError);
+        return new Error('An error occured, please try again later or contact an administrator.');
     }
 
     public async get<T>(url: string): Promise<T | Error> {

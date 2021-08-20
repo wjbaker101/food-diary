@@ -24,7 +24,7 @@ import UserMessageComponent from '@/component/UserMessage.component.vue';
 import { AppState } from '@/store/type/AppState.type';
 import { AppStoreKey } from '@/store/AppStoreKey';
 
-import { api } from '@/api/API';
+import { cookbookrecipeApi } from '@/api/client/cookbookRecipe/CookbookRecipeApi.client';
 import { eventService } from '@/service/Event.service';
 
 export default {
@@ -59,7 +59,7 @@ export default {
                 if (newRecipeUrl.value.length < 3)
                     return showMessage('The requested URL is invalid. Please enter a new one and try again.');
 
-                const recipe = await api.addRecipe({
+                const recipe = await cookbookrecipeApi.addRecipe({
                     url: newRecipeUrl.value,
                     alias: newRecipeAlias.value,
                 });

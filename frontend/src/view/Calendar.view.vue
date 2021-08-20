@@ -47,7 +47,7 @@ import { CalendarEntry } from '@/type/CalendarEntry.type';
 import { AppState } from '@/store/type/AppState.type';
 import { AppStoreKey } from '@/store/AppStoreKey';
 
-import { api } from '@/api/API';
+import { calendarEntryApi } from '@/api/client/calendarEntry/CalendarEntryApi.client';
 
 export default {
     name: 'CalendarView',
@@ -82,11 +82,14 @@ export default {
         const getCalendarEntries = async function () {
             isLoadingEntries.value = true;
 
-            const calendarEntries = await api.getCalendarEntries(
+            const calendarEntries = await calendarEntryApi.getCalendarEntries(
                 calendarDays.value[0],
                 calendarDays.value[calendarDays.value.length - 1]);
 
             isLoadingEntries.value = false;
+
+            if (calendarEntries instanceof Error)
+                return;
 
             const entries = new Map<string, CalendarEntry>();
             calendarEntries.forEach(x => entries.set(x.reference, x));

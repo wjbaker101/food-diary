@@ -2,10 +2,11 @@ import { createStore } from 'vuex';
 
 import { AppState } from '@/store/type/AppState.type';
 import { CalendarEntry } from '@/type/CalendarEntry.type';
-
 import { AppStoreKey as Key } from '@/store/AppStoreKey';
-import { api } from '@/api/API';
 import { CookbookRecipe } from '@/type/CookbookRecipe.type';
+
+import { calendarEntryApi } from '@/api/client/calendarEntry/CalendarEntryApi.client';
+import { cookbookrecipeApi } from '@/api/client/cookbookRecipe/CookbookRecipeApi.client';
 
 const appStore = createStore<AppState>({
 
@@ -63,7 +64,10 @@ const appStore = createStore<AppState>({
         },
 
         async [Key.REMOVE_CALENDAR_ENTRY]({ commit }, reference: string) {
-            await api.removeCalendarEntry(reference);
+            const response = await calendarEntryApi.removeCalendarEntry(reference);
+
+            if (response instanceof Error)
+                return;
 
             commit(Key.REMOVE_CALENDAR_ENTRY, reference);
         },
@@ -77,7 +81,10 @@ const appStore = createStore<AppState>({
         },
 
         async [Key.REMOVE_COOKBOOK_RECIPE]({ commit }, reference: string) {
-            await api.removeRecipe(reference);
+            const response = await cookbookrecipeApi.removeRecipe(reference);
+
+            if (response instanceof Error)
+                return;
 
             commit(Key.REMOVE_COOKBOOK_RECIPE, reference);
         },

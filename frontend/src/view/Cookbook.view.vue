@@ -29,9 +29,9 @@ import PlusIcon from '@/component/icon/PlusIcon.vue';
 import RecipeComponent from '@/component/cookbook/Recipe.component.vue';
 import AddRecipeModalComponent from '@/component/modal/AddRecipeModal.component.vue';
 
+import { cookbookrecipeApi } from '@/api/client/cookbookRecipe/CookbookRecipeApi.client';
 import { AppState } from '@/store/type/AppState.type';
 import { CookbookRecipe } from '@/type/CookbookRecipe.type';
-import { api } from '@/api/API';
 import { AppStoreKey } from '@/store/AppStoreKey';
 import { eventService, OpenModalDetails } from '@/service/Event.service';
 
@@ -49,7 +49,10 @@ export default {
         const recipes = computed<Array<CookbookRecipe>>(() => store.getters.cookbook.recipes);
 
         onMounted(async () => {
-            const response = await api.getRecipes();
+            const response = await cookbookrecipeApi.getRecipes();
+
+            if (response instanceof Error)
+                return;
 
             store.dispatch(AppStoreKey.SET_COOKBOOK_RECIPES, response);
         });

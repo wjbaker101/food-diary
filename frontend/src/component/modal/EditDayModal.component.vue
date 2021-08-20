@@ -106,7 +106,8 @@ import { AppStoreKey } from '@/store/AppStoreKey';
 import { AppState } from '@/store/type/AppState.type';
 import { EditDayModalProps } from '@/component/modal/EditDayModal.props';
 
-import { api } from '@/api/API';
+import { calendarEntryApi } from '@/api/client/calendarEntry/CalendarEntryApi.client';
+import { calendarPhotoApi } from '@/api/client/calendarPhoto/CalendarPhotoApi.client';
 import { dateService } from '@/service/Date.service';
 import { calendarEntryService } from '@/service/CalendarEntry.service';
 import { CalendarPhoto } from '@/type/CalendarPhoto.type';
@@ -202,14 +203,17 @@ export default {
                 if (newEntryDescription.value.length === 0)
                     return;
 
-                const newEntry = await api.addCalendarEntry({
+                const response = await calendarEntryApi.addCalendarEntry({
                     title: newEntryTitle.value,
                     description: newEntryDescription.value,
                     at: props.day.hour(newEntryAtHour.value).minute(newEntryAtMinute.value).toISOString(),
                     daySpan: newEntryDaySpan.value,
                 });
 
-                store.dispatch(AppStoreKey.ADD_CALENDAR_ENTRY, newEntry);
+                if (response instanceof Error)
+                    return;
+
+                store.dispatch(AppStoreKey.ADD_CALENDAR_ENTRY, response);
 
                 newEntryTitle.value = '';
                 newEntryDescription.value = '';
@@ -237,11 +241,14 @@ export default {
 
                 const file = files[0];
 
-                const newPhoto = await api.uploadCalendarPhoto({
+                const response = await calendarPhotoApi.uploadCalendarPhoto({
                     description: newPhotoDescription.value,
                     photo: file,
                     date: props.day.toISOString()
                 });
+
+                if (response instanceof Error)
+                    return;
 
                 newPhotoDescription.value = '';
 
