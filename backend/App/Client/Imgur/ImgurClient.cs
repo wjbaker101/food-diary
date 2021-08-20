@@ -36,12 +36,12 @@ namespace FoodDiaryApi.App.Client.Imgur
                 new("image", image)
             });
 
-            var response = Task.Run(() => _imgurApi.PostAsync("upload", formData)).Result;
+            var response = _imgurApi.PostAsync("upload", formData).Result;
 
             if (!response.IsSuccessStatusCode)
                 throw new ApiThirdPartyException();
 
-            var result = Task.Run(() => response.Content.ReadFromJsonAsync<ImgurResponse<UploadImageResponse>>()).Result;
+            var result = response.Content.ReadFromJsonAsync<ImgurResponse<UploadImageResponse>>().Result;
 
             if (result == null)
                 throw new ApiThirdPartyException();
